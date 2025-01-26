@@ -12,7 +12,7 @@ val DarkColorScheme = darkColorScheme(
     primary = RunSphereGreen,
     background = RunSphereBlack,
 
-    // background of dialog
+    // background of dialog, text field
     surface = RunSphereDarkGray,
     secondary = RunSphereWhite,
     tertiary = RunSphereWhite,
@@ -20,7 +20,8 @@ val DarkColorScheme = darkColorScheme(
     onPrimary = RunSphereBlack,
     onBackground = RunSphereWhite,
     onSurface = RunSphereWhite,
-    onSurfaceVariant = RunSphereGray
+    onSurfaceVariant = RunSphereGray,
+    error = RunSphereDarkRed
 )
 
 @Composable

@@ -6,4 +6,14 @@
     <string name="runsphere_description">Track your runs, set goals and achive fitness milestones with out amazing app.</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_an_account">Already have an Account?</string>
+    <string name="example_email">example@email.com</string>
+    <string name="email">Email</string>
+    <string name="must_be_a_valid_email">Must be a valid email</string>
+    <string name="password">Password</string>
+    <string name="at_lest_x_characters">At least %d characters</string>
+    <string name="at_lest_one_number">At least one number</string>
+    <string name="contains_lowercase_character">Contain Lowercase Character</string>
+    <string name="contains_uppercase_character">Contain Uppercase Character</string>
 </resources>
