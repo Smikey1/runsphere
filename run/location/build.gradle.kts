@@ -10,6 +10,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
 
+    // We dont nedd below in location module
 //    implementation(libs.androidx.compose.ui)
 //    implementation(libs.androidx.compose.ui.tooling.preview)
 //    implementation(libs.androidx.compose.ui.graphics)
