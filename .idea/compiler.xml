@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="Run_Sphere.app" target="21" />
+      <module name="Run_Sphere.auth.data" target="21" />
+      <module name="Run_Sphere.auth.domain" target="11" />
+      <module name="Run_Sphere.auth.domain.main" target="11" />
+      <module name="Run_Sphere.auth.domain.test" target="11" />
+      <module name="Run_Sphere.auth.presentation" target="21" />
+      <module name="Run_Sphere.core.data" target="21" />
+      <module name="Run_Sphere.core.database" target="21" />
+      <module name="Run_Sphere.core.domain" target="11" />
+      <module name="Run_Sphere.core.domain.main" target="11" />
+      <module name="Run_Sphere.core.domain.test" target="11" />
+      <module name="Run_Sphere.core.presentation.designsystem" target="21" />
+      <module name="Run_Sphere.core.presentation.ui" target="21" />
+      <module name="Run_Sphere.run.data" target="21" />
+      <module name="Run_Sphere.run.domain" target="11" />
+      <module name="Run_Sphere.run.domain.main" target="11" />
+      <module name="Run_Sphere.run.domain.test" target="11" />
+      <module name="Run_Sphere.run.location" target="21" />
+      <module name="Run_Sphere.run.network" target="21" />
+      <module name="Run_Sphere.run.presentation" target="21" />
+      <module name="RunSphere.build-logic.convention" target="11" />
+      <module name="RunSphere.build-logic.convention.main" target="11" />
+      <module name="RunSphere.build-logic.convention.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
