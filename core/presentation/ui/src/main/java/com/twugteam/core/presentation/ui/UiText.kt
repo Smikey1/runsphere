@@ -24,3 +24,4 @@ sealed interface UiText {
         }
     }
 }
+
