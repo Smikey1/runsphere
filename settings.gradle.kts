@@ -19,6 +19,20 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+// For --> Unable to make progress running work
+/*
+      - Ordinal groups:
+          - group 0 entry nodes: [:build-logic:convention:clean (SHOULD_RUN)]
+          - group 1 entry nodes: [:build-logic:convention:assemble (EXECUTED)]
+          - group 2 entry nodes: [:build-logic:convention:testClasses (SHOULD_RUN)]
+  - Workers waiting for work: 23
+  - Stopped workers: 1
+
+ */
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
+
 // TODO: typesafe project accessors
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 

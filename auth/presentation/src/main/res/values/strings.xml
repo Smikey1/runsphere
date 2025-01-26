@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RunSphere</string>
+    <string name="runsphere">RunSphere</string>
+    <string name="welcome_to_runsphere">Welcome to RunSphere</string>
+    <string name="runsphere_description">Track your runs, set goals and achive fitness milestones with out amazing app.</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+</resources>
