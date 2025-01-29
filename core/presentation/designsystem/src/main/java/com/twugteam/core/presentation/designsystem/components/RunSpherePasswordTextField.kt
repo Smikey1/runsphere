@@ -147,7 +147,7 @@ private fun RunSpherePasswordTextFieldPreview() {
             title = "Email",
             modifier = Modifier
                 .fillMaxWidth(),
-            isPasswordVisible = false,
+            isPasswordVisible = true,
             onTogglePasswordVisibilityClick = {}
         )
     }

@@ -1,6 +1,5 @@
 package com.twugteam.core.presentation.designsystem.components
 
-import android.text.Layout
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.twugteam.core.presentation.designsystem.RunSphereBlack
 import com.twugteam.core.presentation.designsystem.RunSphereGray
 import com.twugteam.core.presentation.designsystem.RunSphereTheme
+import com.twugteam.core.presentation.designsystem.RunSphereWhite
 
 @Composable
 fun RunSphereActionButton(
@@ -42,8 +42,8 @@ fun RunSphereActionButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContentColor = RunSphereGray,
-            disabledContainerColor = RunSphereBlack
+            disabledContentColor = RunSphereBlack,
+            disabledContainerColor = RunSphereGray
         ),
         shape = RoundedCornerShape(100f),
         modifier = modifier.height(IntrinsicSize.Min)

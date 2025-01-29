@@ -54,12 +54,12 @@ internal fun Project.configureBuildTypes(commonExtension: CommonExtension<*, *, 
 
 private fun BuildType.configureDebugBuildType(apiKey:String){
     buildConfigField("String","API_KEY","\"$apiKey\"")
-    buildConfigField("String","BASE_URL","\"https://runique.pl-coding.com:8080\"")
+    buildConfigField("String","BASE_URL","\"http://192.168.1.109:8080\"")
 }
 private fun BuildType.configureReleaseBuildType(commonExtension: CommonExtension<*, *, *, *, *, *>,
                                                 apiKey:String){
     buildConfigField("String","API_KEY","\"$apiKey\"")
-    buildConfigField("String","BASE_URL","\"https://runique.pl-coding.com:8080\"")
+    buildConfigField("String","BASE_URL","\"http://192.168.1.109:8080\"")
     isMinifyEnabled = true
     proguardFiles(
         commonExtension.getDefaultProguardFile("proguard-android-optimize.txt"),

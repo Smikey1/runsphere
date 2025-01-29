@@ -11,5 +11,6 @@ dependencies {
     //TODO: implementation(project(":auth:domain"))
     implementation(projects.core.domain)
     implementation(projects.auth.domain)
+    implementation(project(":auth:data"))
 }
 
