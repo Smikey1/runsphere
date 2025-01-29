@@ -2,7 +2,7 @@ package com.twugteam.core.presentation.ui
 
 import com.twugteam.core.domain.util.DataError
 
-fun DataError.toUiText(): UiText {
+fun DataError.asUiText(): UiText {
     return when (this) {
         DataError.Local.DISK_FULL -> UiText.StringResource(R.string.error_disk_full)
         DataError.Network.REQUEST_TIMEOUT -> UiText.StringResource(R.string.error_request_timeout)

@@ -1,7 +1,7 @@
 package com.twugteam.auth.presentation.register
 
+import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +43,7 @@ import com.twugteam.core.presentation.designsystem.components.GradientBackground
 import com.twugteam.core.presentation.designsystem.components.RunSphereActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSpherePasswordTextField
 import com.twugteam.core.presentation.designsystem.components.RunSphereTextField
+import com.twugteam.core.presentation.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -49,6 +52,20 @@ fun RegisterScreenRoot(
     onSuccessfulRegistration: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel<RegisterViewModel>()
 ) {
+    val context = LocalContext.current
+    val keyBoaController = LocalSoftwareKeyboardController.current
+    ObserveAsEvents(flow = viewModel.events) { event ->
+        when(event) {
+            is RegisterEvent.Error -> {
+                keyBoaController?.hide()
+                Toast.makeText(context, event.error.asString(context), Toast.LENGTH_SHORT).show()
+            }
+            RegisterEvent.RegistrationSuccess -> {
+                Toast.makeText(context, context.getString(R.string.registration_successful), Toast.LENGTH_SHORT).show()
+                onSuccessfulRegistration()
+            }
+        }
+    }
     RegisterScreen(
         state = viewModel.state,
         onAction = viewModel::onAction
@@ -151,6 +168,7 @@ private fun RegisterScreen(
                 isValid = state.passwordValidationState.hasUppercaseCharacter
             )
             Spacer(modifier = Modifier.height(32.dp))
+
             RunSphereActionButton(
                 text = stringResource(id = R.string.register),
                 isLoading = state.isRegistering,
@@ -201,8 +219,9 @@ private fun RegisterScreenPreview() {
                     hasMinimumLength = true,
                     hasUppercaseCharacter = true
                 ),
+                canRegister = false
             ),
-            onAction = {}
+            onAction = {},
         )
     }
 }

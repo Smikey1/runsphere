@@ -12,5 +12,5 @@ data class RegisterState(
     val isRegistering: Boolean = false,
 
     // This canRegister field is used to enabled or disable our register button
-    val canRegister: Boolean = passwordValidationState.isPasswordValid && !isRegistering
+    val canRegister: Boolean = false
 )

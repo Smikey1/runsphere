@@ -38,7 +38,7 @@ fun IntroScreenRoot(
 }
 
 @Composable
-fun IntroScreen(
+private fun IntroScreen(
     onAction: (IntroAction) -> Unit
 ) {
     GradientBackground {
