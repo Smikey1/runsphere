@@ -18,4 +18,9 @@
     <string name="contains_uppercase_character">Contain Uppercase Character</string>
     <string name="error_email_exist">An User with this email already exist</string>
     <string name="registration_successful">Registration Success!</string>
+    <string name="login_successful">Login Successful</string>
+    <string name="hi_there">"Hi there! "</string>
+    <string name="runsphere_welcome_text">Welcome to your running tracker app where you can track and analyze your runs.</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="error_email_password_incorrect">Either email or password is incorrect.</string>
 </resources>

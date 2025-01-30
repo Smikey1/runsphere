@@ -8,18 +8,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.twugteam.auth.domain.AuthRepository
 import com.twugteam.auth.domain.UserDataValidator
+import com.twugteam.auth.presentation.R
 import com.twugteam.core.domain.util.DataError
 import com.twugteam.core.domain.util.Result
 import com.twugteam.core.presentation.ui.UiText
 import com.twugteam.core.presentation.ui.asUiText
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import com.twugteam.auth.presentation.R
 
 class RegisterViewModel(
     private val userDataValidator: UserDataValidator,
@@ -72,6 +70,7 @@ class RegisterViewModel(
             RegisterAction.OnTogglePasswordVisibilityClick -> {
                 state = state.copy(isPasswordVisible = !state.isPasswordVisible)
             }
+
             else -> Unit
         }
     }
