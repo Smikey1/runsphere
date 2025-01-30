@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.twugteam.auth.domain.PasswordValidationState
 import com.twugteam.auth.domain.UserDataValidator
 import com.twugteam.auth.presentation.R
+import com.twugteam.auth.presentation.login.LoginAction
 import com.twugteam.core.presentation.designsystem.CheckIcon
 import com.twugteam.core.presentation.designsystem.CrossIcon
 import com.twugteam.core.presentation.designsystem.EmailIcon
@@ -55,20 +56,31 @@ fun RegisterScreenRoot(
     val context = LocalContext.current
     val keyBoaController = LocalSoftwareKeyboardController.current
     ObserveAsEvents(flow = viewModel.events) { event ->
-        when(event) {
+        when (event) {
             is RegisterEvent.Error -> {
                 keyBoaController?.hide()
                 Toast.makeText(context, event.error.asString(context), Toast.LENGTH_SHORT).show()
             }
+
             RegisterEvent.RegistrationSuccess -> {
-                Toast.makeText(context, context.getString(R.string.registration_successful), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.registration_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
                 onSuccessfulRegistration()
             }
         }
     }
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                RegisterAction.OnLoginClick -> onLoginClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 

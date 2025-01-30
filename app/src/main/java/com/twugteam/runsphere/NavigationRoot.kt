@@ -8,35 +8,38 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.twugteam.auth.presentation.intro.IntroScreenRoot
+import com.twugteam.auth.presentation.login.LoginScreenRoot
 import com.twugteam.auth.presentation.register.RegisterScreenRoot
 
 
 @Composable
 fun NavigationRoot(navController: NavHostController): Unit {
     NavHost(
-        navController=navController,
+        navController = navController,
         startDestination = "auth"
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 }
 
 
-private fun NavGraphBuilder.authGraph(navController: NavHostController){
+private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     navigation(
         startDestination = "intro",
-        route="auth"
+        route = "auth"
     ) {
-        composable(route = "intro"){
+        composable(route = "intro") {
             IntroScreenRoot(
-                onRegisterClick =  {
+                onRegisterClick = {
                     navController.navigate("register")
                 },
                 onLoginClick = {
+                    navController.navigate("login")
                 }
             )
         }
-        composable(route="register"){
+        composable(route = "register") {
             RegisterScreenRoot(
                 onLoginClick = {
                     navController.navigate("login") {
@@ -44,7 +47,8 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController){
                             inclusive = true
                             saveState = true
                         }
-                        restoreState = true  // restoreState for login screen, if with mistakenly navigate
+                        restoreState =
+                            true  // restoreState for login screen, if with mistakenly navigate
                     }
                 },
                 onSuccessfulRegistration = {
@@ -53,9 +57,37 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController){
             )
         }
 
-        composable(route="login"){
-            Text("LOGIN DONE")
+        composable(route = "login") {
+            LoginScreenRoot(
+                onRegisterClick = {
+                    navController.navigate("register") {
+                        popUpTo("login") {
+                            inclusive = true
+                            saveState = true
+                        }
+                        restoreState = true
+                    }
+                },
+                onSuccessfulLogin = {
+                    navController.navigate("run") {
+                        popUpTo("auth") {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
 
+    }
+}
+
+private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+    navigation(
+        startDestination = "run_overview",
+        route = "run"
+    ) {
+        composable(route = "run_overview") {
+            Text("RUN Overview")
+        }
     }
 }
