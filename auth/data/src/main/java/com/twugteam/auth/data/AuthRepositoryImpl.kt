@@ -3,7 +3,6 @@
 package com.twugteam.auth.data
 
 import com.twugteam.auth.domain.AuthRepository
-import com.twugteam.core.data.auth.EncryptedSessionStorage
 import com.twugteam.core.data.networking.post
 import com.twugteam.core.domain.AuthInfo
 import com.twugteam.core.domain.SessionStorage
