@@ -10,6 +10,7 @@ import androidx.navigation.navigation
 import com.twugteam.auth.presentation.intro.IntroScreenRoot
 import com.twugteam.auth.presentation.login.LoginScreenRoot
 import com.twugteam.auth.presentation.register.RegisterScreenRoot
+import com.twugteam.run.presentation.run_overview.RunOverviewScreenRoot
 
 
 @Composable
@@ -90,7 +91,9 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable(route = "run_overview") {
-            Text("RUN Overview")
+            RunOverviewScreenRoot(
+
+            )
         }
     }
 }

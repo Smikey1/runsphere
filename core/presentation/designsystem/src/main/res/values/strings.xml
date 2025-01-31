@@ -2,4 +2,9 @@
 <resources>
     <string name="show_password">Show Pasword</string>
     <string name="hide_password">Hide Password</string>
+    <string name="go_back">Go back</string>
+    <string name="open_menu">Open Menu</string>
+    <string name="analytics">Analytics</string>
+    <string name="logout">Logout</string>
+    <string name="run_sphere">RunSphere</string>
 </resources>
