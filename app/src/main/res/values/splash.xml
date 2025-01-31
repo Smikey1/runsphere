@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Name must be: Theme.App.Starting <--> splash screen -->
+    <style name="Theme.App.Starting" parent="Theme.RunSphere">
+        <item name="windowSplashScreenBackground">#222222</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_scaled_down</item>
+        <item name="postSplashScreenTheme">@style/Theme.RunSphere</item>
+    </style>
+</resources>

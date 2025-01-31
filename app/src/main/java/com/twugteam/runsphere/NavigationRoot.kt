@@ -13,10 +13,13 @@ import com.twugteam.auth.presentation.register.RegisterScreenRoot
 
 
 @Composable
-fun NavigationRoot(navController: NavHostController): Unit {
+fun NavigationRoot(
+    navController: NavHostController,
+    isLoggingPreviously: Boolean
+    ): Unit {
     NavHost(
         navController = navController,
-        startDestination = "auth"
+        startDestination = if(!isLoggingPreviously) "auth" else "run"
     ) {
         authGraph(navController)
         runGraph(navController)
