@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="run_sphere">RunSphere</string>
+    <string name="analytic">Analytic</string>
+    <string name="logout">Logout</string>
+    <string name="active_run">Active Run</string>
+    <string name="pause_run">Pause Run</string>
+    <string name="resume_run">Resume Run</string>
+    <string name="start_run">Start Run</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="pace">Pace</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="request_location_and_notification_permission">In order to track location and show notification, this app need this permission. Click on okay to grant a permission.</string>
+    <string name="request_location_permission">In order to track location, this app need this permission. Click on okay to grant a permission.</string>
+    <string name="request_notification_permission">In order to show notification, this app need this permission. Click on okay to grant a permission.</string>
+    <string name="okay">Okay</string>
+</resources>

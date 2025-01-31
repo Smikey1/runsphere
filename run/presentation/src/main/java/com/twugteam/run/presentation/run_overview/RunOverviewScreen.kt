@@ -27,8 +27,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RunOverviewScreenRoot(
+    viewModel: RunOverviewViewModel = koinViewModel<RunOverviewViewModel>()
 ) {
-    val viewModel: RunOverviewViewModel = koinViewModel<RunOverviewViewModel>()
 
 }
 
@@ -60,7 +60,7 @@ private fun RunOverviewScreen(
                 onMenuItemClick = { index ->
                     when (index) {
                         0 -> onAction(RunOverviewAction.OnAnalyticsClick)
-                        1 -> onAction(RunOverviewAction.OnAnalyticsClick)
+                        1 -> onAction(RunOverviewAction.OnLogoutClick)
                     }
                 },
                 modifier = Modifier
