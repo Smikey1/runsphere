@@ -28,6 +28,10 @@ import org.koin.androidx.compose.koinViewModel
 fun ActiveRunScreenRoot(
     viewModel: ActiveRunViewModel = koinViewModel<ActiveRunViewModel>()
 ) {
+    ActiveRunScreenScreen(
+        state = viewModel.state,
+        onAction = viewModel::onAction
+    )
 }
 
 @Composable
@@ -62,7 +66,7 @@ private fun ActiveRunScreenScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onSurface)
+                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.8f))
                 .padding(paddingValues)
         ) {
             RunDataCard(
