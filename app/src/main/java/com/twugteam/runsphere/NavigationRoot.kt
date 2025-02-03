@@ -20,7 +20,7 @@ fun NavigationRoot(
 ): Unit {
     NavHost(
         navController = navController,
-        startDestination = if (isLoggingPreviously) "auth" else "run"
+        startDestination = if (!isLoggingPreviously) "auth" else "run"
     ) {
         authGraph(navController)
         runGraph(navController)
