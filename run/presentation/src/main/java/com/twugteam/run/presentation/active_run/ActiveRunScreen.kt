@@ -91,6 +91,7 @@ private fun ActiveRunScreenScreen(
         val showLocationRationale = activity.shouldShowLocationPermissionRationale()
         val showNotificationRationale = activity.shouldShowPostNotificationPermissionRationale()
 
+
         onAction(
             ActiveRunAction.SubmitLocationPermissionInfo(
                 acceptedLocationPermission = context.hasLocationPermission(),

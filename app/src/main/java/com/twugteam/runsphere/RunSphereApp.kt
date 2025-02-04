@@ -4,6 +4,7 @@ import android.app.Application
 import com.twugteam.auth.data.di.authDataModule
 import com.twugteam.auth.presentation.di.authViewModelModule
 import com.twugteam.core.data.di.coreDataModule
+import com.twugteam.run.location.di.locationModule
 import com.twugteam.run.presentation.di.runViewModelModule
 import com.twugteam.runsphere.di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,8 @@ class RunSphereApp : Application() {
                 authDataModule,
                 authViewModelModule,
                 coreDataModule,
-                runViewModelModule
+                runViewModelModule,
+                locationModule
             )
         }
     }
