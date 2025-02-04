@@ -1,6 +1,5 @@
 package com.twugteam.runsphere
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,16 +9,18 @@ import androidx.navigation.navigation
 import com.twugteam.auth.presentation.intro.IntroScreenRoot
 import com.twugteam.auth.presentation.login.LoginScreenRoot
 import com.twugteam.auth.presentation.register.RegisterScreenRoot
+import com.twugteam.run.presentation.active_run.ActiveRunScreenRoot
+import com.twugteam.run.presentation.run_overview.RunOverviewScreenRoot
 
 
 @Composable
 fun NavigationRoot(
     navController: NavHostController,
     isLoggingPreviously: Boolean
-    ): Unit {
+): Unit {
     NavHost(
         navController = navController,
-        startDestination = if(!isLoggingPreviously) "auth" else "run"
+        startDestination = if (!isLoggingPreviously) "auth" else "run"
     ) {
         authGraph(navController)
         runGraph(navController)
@@ -90,7 +91,14 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable(route = "run_overview") {
-            Text("RUN Overview")
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate("active_run")
+                }
+            )
+        }
+        composable(route = "active_run") {
+            ActiveRunScreenRoot()
         }
     }
 }
