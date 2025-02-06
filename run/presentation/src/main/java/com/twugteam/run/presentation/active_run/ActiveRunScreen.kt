@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.twugteam.core.presentation.designsystem.RunSphereTheme
 import com.twugteam.core.presentation.designsystem.StartIcon
 import com.twugteam.core.presentation.designsystem.StopIcon
+import com.twugteam.core.presentation.designsystem.components.RunSphereActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSphereDialog
 import com.twugteam.core.presentation.designsystem.components.RunSphereFloatingActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSphereOutlineActionButton
@@ -157,6 +158,37 @@ private fun ActiveRunScreenScreen(
             )
         }
     }
+
+    if (!state.shouldTrack && state.hasStartedRunningAlready) {
+        RunSphereDialog(
+            title = stringResource(id = R.string.running_is_paused),
+            description = stringResource(id = R.string.resume_or_finish_run),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            primaryActionButton = {
+                RunSphereActionButton(
+                    text = stringResource(R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            },
+            secondaryActionButton = {
+                RunSphereOutlineActionButton(
+                    text = stringResource(R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishedRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        )
+    }
+
     if (state.showLocationRationale || state.showNotificationRationale) {
         RunSphereDialog(
             title = stringResource(R.string.permission_required),

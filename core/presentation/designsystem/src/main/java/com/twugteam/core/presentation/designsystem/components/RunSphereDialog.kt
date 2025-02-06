@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,8 +25,8 @@ fun RunSphereDialog(
     title: String,
     description: String,
     onDismiss: () -> Unit,
-    primaryActionButton: @Composable () -> Unit,
-    secondaryActionButton: @Composable () -> Unit = {},
+    primaryActionButton: @Composable RowScope.() -> Unit,
+    secondaryActionButton: @Composable RowScope.() -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Dialog(onDismissRequest = onDismiss) {
