@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
@@ -26,6 +27,22 @@ class ActiveRunService : Service() {
     companion object {
         var isNotificationServiceActive = false
         private const val CHANNEL_ID = "Active_Run"
+        private const val ACTION_START = "ACTION_START"
+        private const val ACTION_STOP = "ACTION_STOP"
+        private const val EXTRA_ACTIVITY_CLASS = "EXTRA_ACTIVITY_CLASS"
+
+        fun createStartIntent(context: Context, activityClass: Class<*>): Intent {
+            return Intent(context, ActiveRunService::class.java).apply {
+                action = ACTION_START
+                putExtra(EXTRA_ACTIVITY_CLASS, activityClass.name)
+            }
+        }
+
+        fun createStopIntent(context: Context): Intent {
+            return Intent(context, ActiveRunService::class.java).apply {
+                action = ACTION_STOP
+            }
+        }
     }
 
     private val runningTracker by inject<RunningTracker>()
@@ -43,6 +60,29 @@ class ActiveRunService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        when (intent?.action) {
+            ACTION_START -> {
+                val activityClass = intent.getStringExtra(EXTRA_ACTIVITY_CLASS)
+                    ?: throw IllegalArgumentException("No Activity Class Provided")
+                startNotificationService(Class.forName(activityClass))
+            }
+
+            ACTION_STOP -> stopNotificationService()
+        }
+        return START_STICKY
+        /*
+        START_STICKY: -->
+        Constant to return from onStartCommand(Intent, int, int)  : if this service's process is
+        killed while it is started (after returning from onStartCommand(Intent, int, int)  ),
+        then leave it in the started state but don't retain this delivered intent. Later the system
+         will try to re-create the service. Because it is in the started state, it will guarantee
+         to call onStartCommand(Intent, int, int)   after creating the new service instance; if
+         there are not any pending start commands to be delivered to the service, it will be called
+         with a null intent object, so you must take care to check for this.
+         */
     }
 
     private fun startNotificationService(activityClass: Class<*>) {
