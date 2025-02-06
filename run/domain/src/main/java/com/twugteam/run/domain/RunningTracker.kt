@@ -50,6 +50,17 @@ class RunningTracker(
 
     init {
         isTrackingRunActively
+            .onEach { isTracking ->
+                if (!isTracking) {
+                    val newList = buildList<List<LocationTimestampWithAltitude>> {
+                        addAll(runData.value.locations)
+                        add(emptyList<LocationTimestampWithAltitude>())
+                    }.toList()
+                    _runData.update {
+                        it.copy(locations = newList)
+                    }
+                }
+            }
             .flatMapLatest { isTracking ->
                 if (isTracking) {
                     Timer.timeAndEmit()
@@ -75,18 +86,18 @@ class RunningTracker(
                     elapsedTime
                 )
             }
-            .onEach { location ->
+            .onEach { newLocation ->
                 val currentLocation = runData.value.locations
                 val lastLocationList = if (currentLocation.isNotEmpty()) {
-                    currentLocation.last() + location
+                    currentLocation.last() + newLocation
                 } else {
-                    listOf(location)
+                    listOf(newLocation)
                 }
                 val newLocationList = currentLocation.replaceLast(lastLocationList)
 
                 val distanceMeters = LocationDataCalculator.getTotalDistanceMeter(newLocationList)
                 val distanceKm = distanceMeters / 1000.0
-                val currentDuration = location.durationTimestamp
+                val currentDuration = newLocation.durationTimestamp
                 val avgSecondPerKm = if (distanceKm == 0.0) {
                     0
                 } else {
