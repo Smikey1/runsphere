@@ -35,6 +35,7 @@ import com.twugteam.core.presentation.designsystem.components.RunSphereTopAppBar
 import com.twugteam.run.presentation.R
 import com.twugteam.run.presentation.active_run.components.RunDataCard
 import com.twugteam.run.presentation.active_run.maps.TrackerMap
+import com.twugteam.run.presentation.active_run.service.ActiveRunService
 import com.twugteam.run.presentation.utils.hasLocationPermission
 import com.twugteam.run.presentation.utils.hasNotificationPermission
 import com.twugteam.run.presentation.utils.shouldShowLocationPermissionRationale
@@ -44,10 +45,12 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel<ActiveRunViewModel>()
 ) {
     ActiveRunScreenScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = viewModel::onAction
     )
 }
@@ -55,6 +58,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreenScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -113,6 +117,21 @@ private fun ActiveRunScreenScreen(
         }
 
     }
+
+    // For foreground Service
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if (state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    // For foreground Service
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isNotificationServiceActive) {
+            onServiceToggle(true)
+        }
+    }
+
     RunSphereScaffold(
         gradientEnabled = false,
         topAppBar = {
@@ -247,7 +266,10 @@ fun ActiveRunScreenPreview() {
     RunSphereTheme {
         ActiveRunScreenScreen(
             state = ActiveRunState(),
-            onAction = { }
+            onAction = { },
+            onServiceToggle = {
+
+            }
         )
     }
 }

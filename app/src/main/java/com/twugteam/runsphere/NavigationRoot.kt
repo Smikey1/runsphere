@@ -1,6 +1,7 @@
 package com.twugteam.runsphere
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,7 @@ import com.twugteam.auth.presentation.intro.IntroScreenRoot
 import com.twugteam.auth.presentation.login.LoginScreenRoot
 import com.twugteam.auth.presentation.register.RegisterScreenRoot
 import com.twugteam.run.presentation.active_run.ActiveRunScreenRoot
+import com.twugteam.run.presentation.active_run.service.ActiveRunService
 import com.twugteam.run.presentation.run_overview.RunOverviewScreenRoot
 
 
@@ -106,7 +108,22 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                 }
             ),
         ) {
-            ActiveRunScreenRoot()
+            val context = LocalContext.current
+            ActiveRunScreenRoot(
+                onServiceToggle = { shouldServiceRun ->
+                    if (shouldServiceRun) {
+                        context.startService(
+                            ActiveRunService.createStartIntent(
+                                context = context,
+                                activityClass = MainActivity::class.java
+                            )
+                        )
+                    } else {
+                        // startService --> just pass/deliver the new instance of ActiveRunService
+                        context.startService(ActiveRunService.createStopIntent(context))
+                    }
+                }
+            )
         }
     }
 }
