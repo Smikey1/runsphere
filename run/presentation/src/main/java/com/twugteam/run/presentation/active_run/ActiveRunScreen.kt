@@ -33,6 +33,7 @@ import com.twugteam.core.presentation.designsystem.components.RunSphereScaffold
 import com.twugteam.core.presentation.designsystem.components.RunSphereTopAppBar
 import com.twugteam.run.presentation.R
 import com.twugteam.run.presentation.active_run.components.RunDataCard
+import com.twugteam.run.presentation.active_run.maps.TrackerMap
 import com.twugteam.run.presentation.utils.hasLocationPermission
 import com.twugteam.run.presentation.utils.hasNotificationPermission
 import com.twugteam.run.presentation.utils.shouldShowLocationPermissionRationale
@@ -141,6 +142,13 @@ private fun ActiveRunScreenScreen(
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.8f))
                 .padding(paddingValues)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
