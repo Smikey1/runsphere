@@ -16,6 +16,14 @@ fun Duration.toFormatted(): String {
     return "$hours:$minutes:$seconds"
 }
 
+fun Double.toFormattedKmh(): String {
+    return "${this.roundToDecimalPlaces(1)} km/h"
+}
+
+fun Int.toFormattedMeters(): String {
+    return "$this m"
+}
+
 fun Double.toFormattedKm(): String {
     return "${this.roundToDecimalPlaces(1)} km"
 }
