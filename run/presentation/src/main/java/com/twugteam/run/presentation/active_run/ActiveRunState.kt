@@ -12,7 +12,7 @@ data class ActiveRunState(
     val hasStartedRunningAlready: Boolean = false,
     val currentLocation: Location? = null,
     val isRunFinished: Boolean = false,
-    val isSavingRun: Boolean = false,
+    val isSavingRun: Boolean = false, // show progress on saving run
     val showLocationRationale: Boolean = false,
     val showNotificationRationale: Boolean = false
 )

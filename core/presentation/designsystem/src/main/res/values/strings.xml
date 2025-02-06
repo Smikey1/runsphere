@@ -7,4 +7,5 @@
     <string name="analytics">Analytics</string>
     <string name="logout">Logout</string>
     <string name="run_sphere">RunSphere</string>
+    <string name="active_run">Active Run</string>
 </resources>

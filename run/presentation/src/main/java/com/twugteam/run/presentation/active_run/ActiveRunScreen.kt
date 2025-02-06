@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.twugteam.core.presentation.designsystem.RunSphereTheme
 import com.twugteam.core.presentation.designsystem.StartIcon
 import com.twugteam.core.presentation.designsystem.StopIcon
+import com.twugteam.core.presentation.designsystem.components.RunSphereActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSphereDialog
 import com.twugteam.core.presentation.designsystem.components.RunSphereFloatingActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSphereOutlineActionButton
@@ -33,6 +34,8 @@ import com.twugteam.core.presentation.designsystem.components.RunSphereScaffold
 import com.twugteam.core.presentation.designsystem.components.RunSphereTopAppBar
 import com.twugteam.run.presentation.R
 import com.twugteam.run.presentation.active_run.components.RunDataCard
+import com.twugteam.run.presentation.active_run.maps.TrackerMap
+import com.twugteam.run.presentation.active_run.service.ActiveRunService
 import com.twugteam.run.presentation.utils.hasLocationPermission
 import com.twugteam.run.presentation.utils.hasNotificationPermission
 import com.twugteam.run.presentation.utils.shouldShowLocationPermissionRationale
@@ -42,10 +45,12 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ActiveRunScreenRoot(
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel<ActiveRunViewModel>()
 ) {
     ActiveRunScreenScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = viewModel::onAction
     )
 }
@@ -53,6 +58,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreenScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -111,6 +117,21 @@ private fun ActiveRunScreenScreen(
         }
 
     }
+
+    // For foreground Service
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if (state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    // For foreground Service
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isNotificationServiceActive) {
+            onServiceToggle(true)
+        }
+    }
+
     RunSphereScaffold(
         gradientEnabled = false,
         topAppBar = {
@@ -141,6 +162,13 @@ private fun ActiveRunScreenScreen(
                 .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.8f))
                 .padding(paddingValues)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
@@ -149,6 +177,37 @@ private fun ActiveRunScreenScreen(
             )
         }
     }
+
+    if (!state.shouldTrack && state.hasStartedRunningAlready) {
+        RunSphereDialog(
+            title = stringResource(id = R.string.running_is_paused),
+            description = stringResource(id = R.string.resume_or_finish_run),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            primaryActionButton = {
+                RunSphereActionButton(
+                    text = stringResource(R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            },
+            secondaryActionButton = {
+                RunSphereOutlineActionButton(
+                    text = stringResource(R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishedRunClick)
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        )
+    }
+
     if (state.showLocationRationale || state.showNotificationRationale) {
         RunSphereDialog(
             title = stringResource(R.string.permission_required),
@@ -207,7 +266,10 @@ fun ActiveRunScreenPreview() {
     RunSphereTheme {
         ActiveRunScreenScreen(
             state = ActiveRunState(),
-            onAction = { }
+            onAction = { },
+            onServiceToggle = {
+
+            }
         )
     }
 }

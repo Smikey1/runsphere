@@ -19,9 +19,13 @@ val DarkColorScheme = darkColorScheme(
     primaryContainer = RunSphereGreen30,
     onPrimary = RunSphereBlack,
     onBackground = RunSphereWhite,
+
+    // Title or Heading Text placed on top of Card, Dialog
     onSurface = RunSphereWhite,
+    // value or content for placed on top of Card, Dialog
     onSurfaceVariant = RunSphereGray,
-    error = RunSphereDarkRed
+    error = RunSphereDarkRed,
+    errorContainer = RunSphereDarkRed5
 )
 
 @Composable
