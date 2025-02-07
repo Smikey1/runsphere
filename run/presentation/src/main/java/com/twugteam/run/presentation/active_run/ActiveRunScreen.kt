@@ -4,6 +4,7 @@ package com.twugteam.run.presentation.active_run
 
 import android.Manifest
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -41,6 +42,7 @@ import com.twugteam.run.presentation.utils.hasNotificationPermission
 import com.twugteam.run.presentation.utils.shouldShowLocationPermissionRationale
 import com.twugteam.run.presentation.utils.shouldShowPostNotificationPermissionRationale
 import org.koin.androidx.compose.koinViewModel
+import java.io.ByteArrayOutputStream
 
 
 @Composable
@@ -166,7 +168,13 @@ private fun ActiveRunScreenScreen(
                 isRunFinished = state.isRunFinished,
                 currentLocation = state.currentLocation,
                 locations = state.runData.locations,
-                onSnapshot = {},
+                onSnapshot = { bitmap ->
+                    val outputStream = ByteArrayOutputStream()
+                    outputStream.use {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, it)
+                    }
+                    onAction(ActiveRunAction.OnRunProcessed(outputStream.toByteArray()))
+                },
                 modifier = Modifier.fillMaxSize()
             )
             RunDataCard(

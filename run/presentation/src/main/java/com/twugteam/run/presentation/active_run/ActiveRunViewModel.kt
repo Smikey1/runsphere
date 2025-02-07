@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.twugteam.core.domain.location.Location
+import com.twugteam.core.domain.run.Run
+import com.twugteam.run.domain.LocationDataCalculator
 import com.twugteam.run.domain.RunningTracker
 import com.twugteam.run.presentation.active_run.service.ActiveRunService
 import kotlinx.coroutines.channels.Channel
@@ -16,6 +19,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ActiveRunViewModel(
     private val runningTracker: RunningTracker
@@ -75,7 +81,11 @@ class ActiveRunViewModel(
     fun onAction(action: ActiveRunAction) {
         when (action) {
             ActiveRunAction.OnFinishedRunClick -> {
-
+                state = state.copy(
+                    isRunFinished = true,
+                    // for showing progress indicator
+                    isSavingRun = true
+                )
             }
 
             ActiveRunAction.OnResumeRunClick -> {
@@ -107,7 +117,36 @@ class ActiveRunViewModel(
                 )
             }
 
+            is ActiveRunAction.OnRunProcessed -> {
+                finishRun(action.mapPictureByte)
+            }
+
             else -> Unit
+        }
+    }
+
+    private fun finishRun(imageByte: ByteArray) {
+        val locations = state.runData.locations
+        if (locations.isEmpty() || locations.first().size <= 1) {
+            state = state.copy(isSavingRun = false)
+            return
+        }
+        viewModelScope.launch {
+            val run = Run(
+                id = null,
+                duration = state.elapsedTime,
+                dateTimeUtc = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")),
+                distanceMeter = state.runData.distanceMeters,
+                location = state.currentLocation ?: Location(0.0, 0.0),
+                maxSpeedKmh = LocationDataCalculator.getMaxSpeedKmh(locations),
+                totalElevationMeters = LocationDataCalculator.getTotalElevationMeters(locations),
+                mapPictureUrl = null,
+            )
+
+            // call repository
+
+            runningTracker.finishRun()
+            state = state.copy(isSavingRun = false)
         }
     }
 
