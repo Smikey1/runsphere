@@ -6,6 +6,7 @@ import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -33,6 +34,7 @@ import com.twugteam.core.presentation.designsystem.components.RunSphereFloatingA
 import com.twugteam.core.presentation.designsystem.components.RunSphereOutlineActionButton
 import com.twugteam.core.presentation.designsystem.components.RunSphereScaffold
 import com.twugteam.core.presentation.designsystem.components.RunSphereTopAppBar
+import com.twugteam.core.presentation.ui.ObserveAsEvents
 import com.twugteam.run.presentation.R
 import com.twugteam.run.presentation.active_run.components.RunDataCard
 import com.twugteam.run.presentation.active_run.maps.TrackerMap
@@ -47,13 +49,40 @@ import java.io.ByteArrayOutputStream
 
 @Composable
 fun ActiveRunScreenRoot(
+    onFinish: () -> Unit,
+    onBackClick: () -> Unit,
     onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel<ActiveRunViewModel>()
 ) {
+    val context = LocalContext.current
+    ObserveAsEvents(viewModel.events) { event ->
+        when (event) {
+            is ActiveRunEvent.Error -> {
+                Toast.makeText(context, event.error.asString(context), Toast.LENGTH_SHORT).show()
+            }
+
+            ActiveRunEvent.RunSaved -> {
+                onFinish()
+                Toast.makeText(context, context.getString(R.string.active_run), Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
     ActiveRunScreenScreen(
         state = viewModel.state,
         onServiceToggle = onServiceToggle,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                ActiveRunAction.OnBackClick -> {
+                    if (!viewModel.state.hasStartedRunningAlready) {
+                        onBackClick()
+                    }
+                }
+
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 

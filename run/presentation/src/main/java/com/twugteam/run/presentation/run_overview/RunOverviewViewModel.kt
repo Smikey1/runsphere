@@ -4,8 +4,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.twugteam.core.domain.run.RunRepository
 
-class RunOverviewViewModel : ViewModel() {
+class RunOverviewViewModel(
+    private val runRepository: RunRepository
+) : ViewModel() {
 
     var state by mutableStateOf(RunOverviewState())
         private set

@@ -15,7 +15,7 @@ object LocationDataCalculator {
     }
 
     fun getMaxSpeedKmh(locations: List<List<LocationTimestampWithAltitude>>): Double {
-        return location.maxOf { locationSet ->
+        return locations.maxOf { locationSet ->
             val speedKmhList = locationSet.zipWithNext { location1, location2 ->
                 val distance = location1.locationWithAltitude.location.distanceTo(location2.locationWithAltitude.location)
                 val distanceKm = distance / 1000.0
