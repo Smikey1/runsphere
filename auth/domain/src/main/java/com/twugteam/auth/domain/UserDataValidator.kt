@@ -1,7 +1,5 @@
 package com.twugteam.auth.domain
 
-import sun.security.util.Password
-
 class UserDataValidator(
     private val patternValidator: PatternValidator
 ) {

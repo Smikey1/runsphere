@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.runsphere.jvm.library)
+    alias(libs.plugins.runsphere.jvm.junit5)
 }
 
 
@@ -11,4 +12,5 @@ plugins {
 
 dependencies {
     implementation(projects.core.domain)
+    testImplementation(libs.junit.jupiter)
 }

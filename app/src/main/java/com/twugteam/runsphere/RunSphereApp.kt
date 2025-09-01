@@ -4,6 +4,8 @@ import android.app.Application
 import com.twugteam.auth.data.di.authDataModule
 import com.twugteam.auth.presentation.di.authViewModelModule
 import com.twugteam.core.data.di.coreDataModule
+import com.twugteam.core.database.di.databaseModule
+import com.twugteam.run.di.networkModule
 import com.twugteam.run.location.di.locationModule
 import com.twugteam.run.presentation.di.runPresentationModule
 import com.twugteam.runsphere.di.appModule
@@ -31,7 +33,9 @@ class RunSphereApp : Application() {
                 authViewModelModule,
                 coreDataModule,
                 runPresentationModule,
-                locationModule
+                locationModule,
+                databaseModule,
+                networkModule
             )
         }
     }

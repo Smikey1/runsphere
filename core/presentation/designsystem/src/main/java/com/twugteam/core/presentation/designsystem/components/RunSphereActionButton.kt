@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.twugteam.core.presentation.designsystem.RunSphereBlack
 import com.twugteam.core.presentation.designsystem.RunSphereGray
 import com.twugteam.core.presentation.designsystem.RunSphereTheme
-import com.twugteam.core.presentation.designsystem.RunSphereWhite
 
 @Composable
 fun RunSphereActionButton(
@@ -104,7 +103,7 @@ fun RunSphereOutlineActionButton(
                     .size(15.dp)
                     .alpha(if (isLoading) 1f else 0f),
                 strokeWidth = 1.5.dp,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = text,

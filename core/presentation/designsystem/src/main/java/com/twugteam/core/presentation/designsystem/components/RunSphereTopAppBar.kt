@@ -37,10 +37,10 @@ import com.twugteam.core.presentation.designsystem.AnalyticsIcon
 import com.twugteam.core.presentation.designsystem.ArrowLeftIcon
 import com.twugteam.core.presentation.designsystem.LogoIcon
 import com.twugteam.core.presentation.designsystem.Poppins
+import com.twugteam.core.presentation.designsystem.R
 import com.twugteam.core.presentation.designsystem.RunSphereGreen
 import com.twugteam.core.presentation.designsystem.RunSphereTheme
 import com.twugteam.core.presentation.designsystem.components.utils.DropdownItem
-import com.twugteam.core.presentation.designsystem.R
 
 @Composable
 fun RunSphereTopAppBar(
