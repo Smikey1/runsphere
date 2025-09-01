@@ -11,6 +11,7 @@ import com.twugteam.core.domain.util.asEmptyDataResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 
 class OfflineFirstRunRepository(
     private val localRunDataSource: LocalRunDataSource,
@@ -38,6 +39,9 @@ class OfflineFirstRunRepository(
             return localResult.asEmptyDataResult()
         }
         val runWithId = run.copy(id = localResult.data) // here data is RunId
+
+        Timber.tag("LOCAL").d(mapPicture.toString())
+
 
         val remoteResult = remoteRunDataSource.postRun(
             run = runWithId,

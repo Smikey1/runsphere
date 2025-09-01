@@ -61,11 +61,7 @@ fun ActiveRunScreenRoot(
                 Toast.makeText(context, event.error.asString(context), Toast.LENGTH_SHORT).show()
             }
 
-            ActiveRunEvent.RunSaved -> {
-                onFinish()
-                Toast.makeText(context, context.getString(R.string.active_run), Toast.LENGTH_SHORT)
-                    .show()
-            }
+            ActiveRunEvent.RunSaved -> onFinish()
         }
     }
     ActiveRunScreenScreen(
@@ -78,7 +74,6 @@ fun ActiveRunScreenRoot(
                         onBackClick()
                     }
                 }
-
                 else -> Unit
             }
             viewModel.onAction(action)
@@ -169,7 +164,7 @@ private fun ActiveRunScreenScreen(
             RunSphereTopAppBar(
                 showBackButton = true,
                 onBackClick = {
-                    onAction(ActiveRunAction.OnResumeRunClick)
+                    onAction(ActiveRunAction.OnBackClick)
                 },
                 title = stringResource(R.string.active_run)
             )

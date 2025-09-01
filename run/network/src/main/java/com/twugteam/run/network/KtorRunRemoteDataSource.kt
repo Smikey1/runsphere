@@ -2,6 +2,7 @@
 
 package com.twugteam.run.network
 
+import android.util.Log
 import com.twugteam.core.data.networking.constructRoute
 import com.twugteam.core.data.networking.delete
 import com.twugteam.core.data.networking.get
@@ -31,7 +32,7 @@ class KtorRunRemoteDataSource(
 
     override suspend fun getRuns(): Result<List<Run>, DataError.Network> {
         return httpClient.get<List<RunDto>>(
-            route = "/run"
+            route = "/runs"
         ).mapToResult { runDtoList ->
             runDtoList.map {
                 it.toRun()
@@ -42,12 +43,13 @@ class KtorRunRemoteDataSource(
     override suspend fun postRun(run: Run, mapPicture: ByteArray): Result<Run, DataError.Network> {
         val createRunRequestJson = Json.encodeToString(run.toCreateRunRequestJson())
         val result = safeCall<RunDto> {
+            Log.d("LOCAL", "postRun---->>: ${mapPicture}")
             httpClient.submitFormWithBinaryData(
                 block = { HttpMethod.Post },
                 url = constructRoute("/run"),
                 formData = formData {
                     append("MAP_PICTURE", mapPicture, Headers.build {
-                        append(HttpHeaders.ContentType, "images/jpeg")
+                        append(HttpHeaders.ContentType, "image/jpeg")
 
                         // ContentDisposition means --> name of file
                         append(HttpHeaders.ContentDisposition, "filename = mappicture.jpg")

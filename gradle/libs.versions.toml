@@ -1,47 +1,56 @@
 [versions]
-agp = "8.8.0"
-androidTools = "31.8.0"
+agp = "8.8.2"
+androidTools = "31.9.0"
 core = "1.10.3"
 playCore = "1.10.3"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.6.0"
-desugar_jdk_libs = "2.1.4"
+desugar_jdk_libs = "2.1.5"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-activityCompose = "1.10.0"
-ktor = "2.3.12"
+activityCompose = "1.10.1"
+ktor = "3.2.3"
 ktorClientLogging = "2.3.12"
-ktorServerCallLogging = "2.3.7"
-koin = "3.5.6"
-lifecycleRuntimeKtx = "2.8.7"
-composeBom = "2025.01.00"
-materialIconsExtended = "1.7.6"
-navigationCompose = "2.8.5"
+ktorServerCallLogging = "3.2.3"
+koin = "4.1.0"
+lifecycleRuntimeKtx = "2.9.3"
+composeBom = "2025.08.01"
+materialIconsExtended = "1.7.8"
+navigationCompose = "2.9.3"
 securityCryptoKtx = "1.1.0-alpha06"
 timber = "5.0.1"
 ksp = "2.1.0-1.0.29"
-room = "2.6.1"
+room = "2.7.2"
 appcompat = "1.7.0"
 material = "1.12.0"
-org-jetbrains-kotlin-jvm = "2.0.0"
+org-jetbrains-kotlin-jvm = "2.2.10"
 maps = "4.3.3"
 coroutines = "1.8.0"
 gmsLocation = "21.3.0"
 mapsUtils = "5.0.0"
 bson = "4.11.1"
 work = "2.10.0"
-kotlinx-serialization = "1.6.3"
+kotlinx-serialization = "1.9.0"
 secretsPlugin = "2.0.1"
-playServicesMaps = "19.0.0"
+playServicesMaps = "19.1.0"
 annotation = "1.9.1"
 composeWearOs = "1.3.1"
 composeMaterialWearOs = "1.0.0-alpha20"
 health = "1.0.0-rc02"
 play-services-wearable = "18.1.0"
 wear = "1.3.0"
+
+junit5 = "5.10.1"
+junit5-plugin = "1.10.0.0"
+junit5-compose = "1.4.0"
+mockk = "1.13.11"
+assertk = "0.28.1"
+turbine = "0.7.0"
+composeUiTestManifest = "1.6.8"
+coroutines-test = "1.8.1"
 
 # Project versions
 projectApplicationId = "com.twugteam.runsphere"
@@ -50,6 +59,7 @@ projectMinSdkVersion = "24"
 projectTargetSdkVersion = "35"
 projectCompileSdkVersion = "35"
 projectVersionCode = "1"
+junitJupiter = "5.8.1"
 
 [libraries]
 # module = androidx.core:core-splashscreen  --> module is divided into group and name
@@ -83,7 +93,7 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref="composeUiTestManifest"}
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
@@ -114,14 +124,33 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
+# wear os
+androidx-wear-compose-material = { group = "androidx.wear.compose", name = "compose-material3", version.ref = "composeMaterialWearOs" }
+androidx-wear-compose-foundation = { group = "androidx.wear.compose", name = "compose-foundation", version.ref = "composeWearOs" }
+androidx-wear-compose-ui-tooling = { group = "androidx.wear.compose", name = "compose-ui-tooling", version.ref = "composeWearOs" }
+play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "play-services-wearable" }
+androidx-health-services-client = { group = "androidx.health", name = "health-services-client", version.ref = "health" }
+androidx-wear = { group = "androidx.wear", name = "wear", version.ref = "wear" }
+
+# Test dependencies
+junit5-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+# for parameterized test
+junit5-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+junit5-android-test-compose = { module = "de.mannodermaus.junit5:android-test-compose", version.ref = "junit5-compose" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test" }
 
 # Gradle -> build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 
 
 [plugins]
@@ -134,8 +163,6 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 
-
-
 # ksp for code generation like for room database
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
@@ -144,6 +171,9 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 # this below plugin allows us to keep api key of map in local file without keeping it in gradle file
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+
+# Junit 5 gradle plugin
+junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 
 # verson = unavailabe --> it means nothing. But we cant leave empty in version.
 runsphere-android-application = {id = "runsphere.android.application", version="unavailable"}
@@ -156,6 +186,10 @@ runsphere-android-feature-ui = {id = "runsphere.android.feature.ui", version="un
 runsphere-android-room = { id = "runsphere.android.room", version = "unspecified" }
 runsphere-jvm-library = { id = "runsphere.jvm.library", version = "unspecified" }
 runsphere-jvm-ktor = { id = "runsphere.jvm.ktor", version = "unspecified" }
+
+# For testing
+runsphere-jvm-junit5 = { id = "runsphere.jvm.junit5", version = "unspecified" }
+runsphere-android-junit5 = { id = "runsphere.android.junit5", version = "unspecified" }
 
 [bundles]
 # bundles for ktor client

@@ -16,7 +16,7 @@ fun RunDto.toRun(): Run {
         id = id,
         dateTimeUtc = Instant.parse(dateTimeUtc).atZone(ZoneId.of("UTC")),
         duration = durationMillis.milliseconds,
-        distanceMeter = distanceMeter,
+        distanceMeter = distanceMeters,
         location = Location(lat, long),
         maxSpeedKmh = maxSpeedKmh,
         totalElevationMeters = totalElevationMeters,

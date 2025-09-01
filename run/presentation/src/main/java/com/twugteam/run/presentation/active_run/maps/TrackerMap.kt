@@ -43,12 +43,13 @@ import com.twugteam.core.domain.location.Location
 import com.twugteam.core.domain.location.LocationTimestampWithAltitude
 import com.twugteam.core.presentation.designsystem.RunIcon
 import com.twugteam.run.presentation.R
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.milliseconds
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun TrackerMap(
     isRunFinished: Boolean,
@@ -117,14 +118,13 @@ fun TrackerMap(
         } else modifier
     ) {
         RunSpherePolyline(locations = locations)
-
         MapEffect(
             locations,
             isRunFinished,
             triggerCapture,
             createSnapshotCoroutineJob
         ) { googleMap ->
-            if (isRunFinished && triggerCapture && createSnapshotCoroutineJob != null) {
+            if (isRunFinished && triggerCapture && createSnapshotCoroutineJob == null) {
                 triggerCapture = false
 
                 // From this boundsBuilder  --> google map will automatically adjust the zoom level
@@ -149,7 +149,7 @@ fun TrackerMap(
                     createSnapshotCoroutineJob = GlobalScope.launch {
                         // make sure the map is sharp and focused before taking the screenshot
                         // once camera comes to IDLE state from moving
-                        delay(500.milliseconds)
+                        delay(1000L)
                         googleMap.awaitSnapshot()?.let { bitmap ->
                             onSnapshot(bitmap)
                         }
